@@ -421,14 +421,14 @@ export const traits = {
         desc: loc('trait_oleophilic'),
         type: 'genus',
         val: 2,
-        vars: [-15, 15]
+        vars: [15, 15]
     },
     aquaphobic: { // Allergic to Rain
         name: loc('trait_aquaphobic_name'),
         desc: loc('trait_aquaphobic'),
         type: 'genus',
         val: -6,
-        vars: [-50, -25, -10, 0]
+        vars: [50, 25, 10, 0]
     },
     creative: { // A.R.P.A. Projects are cheaper
         name: loc('trait_creative_name'),

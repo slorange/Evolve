@@ -1822,7 +1822,7 @@ export function armyRating(val,type,wound){
     if (global.tech['military'] && global.tech.military > 1 && global.race['sniper']){
         weapon_tech *= 1 + (traits.sniper.vars[0] / 100 * weapon_tech);
     }
-    weapon_tech += global.tech['cyborg'] || global.race['cyborg'] ? 1 : 0;
+    weapon_tech += global.tech['cyborg'] || global.race['cyborg_soldiers'] ? 1 : 0;
 
     let adjusted_val = global.race['rage'] ? (val + (wounded * traits.rage.vars[1] / 100)) : (val - (wounded / 2));
     let army = global.tech['military'] ? adjusted_val * weapon_tech : adjusted_val;
