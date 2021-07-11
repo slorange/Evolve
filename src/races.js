@@ -134,7 +134,12 @@ export const genus_traits = {
     angelic: {
         blissful: 1,
         pompous: 1,
-        holy: 1,
+        holy: 1
+    },
+    mechanical: {
+        mechanical: 1,
+        oleophilic: 1,
+        aquaphobic: 1
     }
 };
 
@@ -403,6 +408,27 @@ export const traits = {
         type: 'genus',
         val: 4,
         vars: [50,25]
+    },
+    mechanical: { // Machine Bonus
+        name: loc('trait_mechanical_name'),
+        desc: loc('trait_mechanical'),
+        type: 'genus',
+        val: 4,
+        vars: [30]
+    },
+    oleophilic: { // Pops consume Oil
+        name: loc('trait_oleophilic_name'),
+        desc: loc('trait_oleophilic'),
+        type: 'genus',
+        val: 2,
+        vars: [-15, 15]
+    },
+    aquaphobic: { // Allergic to Rain
+        name: loc('trait_aquaphobic_name'),
+        desc: loc('trait_aquaphobic'),
+        type: 'genus',
+        val: -5,
+        vars: [-30, -20, -10, 0]
     },
     creative: { // A.R.P.A. Projects are cheaper
         name: loc('trait_creative_name'),

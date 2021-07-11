@@ -836,7 +836,8 @@ function fastLoop(){
         (races[global.race.species].type === 'polar' && global.city.biome !== 'tundra') ||
         (races[global.race.species].type === 'sand' && global.city.biome !== 'desert') ||
         (races[global.race.species].type === 'demonic' && global.city.biome !== 'hellscape') ||
-        (races[global.race.species].type === 'angelic' && global.city.biome !== 'eden')
+        (races[global.race.species].type === 'angelic' && global.city.biome !== 'eden') ||
+        (races[global.race.species].type === 'mechanical' && global.city.ptrait !== 'magnetic')
     ){
         if (global.blood['unbound'] && global.blood.unbound >= 4){
             breakdown.p['Global'][loc('unsuited')] = `-${5}%`;

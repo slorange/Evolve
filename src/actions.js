@@ -167,7 +167,10 @@ export const actions = {
                     addAction('evolution','chloroplasts');
                     global.evolution['chitin'] = { count: 0 };
                     addAction('evolution','chitin');
-
+                    if (global.city.ptrait === 'magnetic' || global.blood['unbound']) {
+                        global.evolution['electrical'] = { count: 0 };
+                        addAction('evolution', 'electrical');
+                    }
                     global.evolution['final'] = 20;
                     evoProgress();
                 }
@@ -196,6 +199,10 @@ export const actions = {
                     removeAction(actions.evolution.chitin.id);
                     delete global.evolution.chloroplasts;
                     delete global.evolution.chitin;
+                    if (global.city.ptrait === 'magnetic' || global.blood['unbound']) {
+                        removeAction(actions.evolution.electrical.id);
+                        delete global.evolution.electrical;
+                    }
                     global.evolution['multicellular'] = { count: 0 };
                     global.evolution['final'] = 40;
                     addAction('evolution','multicellular');
@@ -226,6 +233,10 @@ export const actions = {
                     removeAction(actions.evolution.chitin.id);
                     delete global.evolution.phagocytosis;
                     delete global.evolution.chitin;
+                    if (global.city.ptrait === 'magnetic' || global.blood['unbound']) {
+                        removeAction(actions.evolution.electrical.id);
+                        delete global.evolution.electrical;
+                    }
                     global.evolution['multicellular'] = { count: 0 };
                     global.evolution['final'] = 40;
                     addAction('evolution','multicellular');
@@ -245,29 +256,65 @@ export const actions = {
             title: loc('evo_chitin_title'),
             desc: loc('evo_chitin_desc'),
             cost: {
-                DNA(){ return 175; }
+                DNA() { return 175; }
             },
-            effect(){ return global.city.biome === 'hellscape' && global.race.universe !== 'evil' ? `<div>${loc('evo_chitin_effect')}</div><div class="has-text-special">${loc('evo_warn_unwise')}</div>` : loc('evo_chitin_effect'); },
-            action(){
-                if (payCosts($(this)[0].cost)){
+            effect() { return global.city.biome === 'hellscape' && global.race.universe !== 'evil' ? `<div>${loc('evo_chitin_effect')}</div><div class="has-text-special">${loc('evo_warn_unwise')}</div>` : loc('evo_chitin_effect'); },
+            action() {
+                if (payCosts($(this)[0].cost)) {
                     global.evolution['chitin'].count++;
                     removeAction(actions.evolution.chitin.id);
                     removeAction(actions.evolution.phagocytosis.id);
                     removeAction(actions.evolution.chloroplasts.id);
                     delete global.evolution.phagocytosis;
                     delete global.evolution.chloroplasts;
+                    if (global.city.ptrait === 'magnetic' || global.blood['unbound']) {
+                        removeAction(actions.evolution.electrical.id);
+                        delete global.evolution.electrical;
+                    }
                     global.evolution['multicellular'] = { count: 0 };
                     global.evolution['final'] = 40;
-                    addAction('evolution','multicellular');
+                    addAction('evolution', 'multicellular');
                     evoProgress();
                 }
                 return false;
             },
-            no_queue(){
+            no_queue() {
                 let key = $(this)[0].id.split('-')[1];
                 return !global.evolution.hasOwnProperty(key) || global.evolution[key].count >= 1 ? true : false;
             },
-            queue_complete(){ return 1; },
+            queue_complete() { return 1; },
+            queueable: true
+        },
+        electrical: {
+            id: 'evolution-electrical',
+            title: loc('evo_electrical_title'),
+            desc: loc('evo_electrical_desc'),
+            cost: {
+                DNA() { return 175; }
+            },
+            effect() { return global.city.biome === 'hellscape' && global.race.universe !== 'evil' ? `<div>${loc('evo_chitin_effect')}</div><div class="has-text-special">${loc('evo_warn_unwise')}</div>` : loc('evo_chitin_effect'); },
+            action() {
+                if (payCosts($(this)[0].cost)) {
+                    global.evolution['electrical'].count++;
+                    removeAction(actions.evolution.chitin.id);
+                    removeAction(actions.evolution.phagocytosis.id);
+                    removeAction(actions.evolution.chloroplasts.id);
+                    removeAction(actions.evolution.electrical.id);
+                    delete global.evolution.phagocytosis;
+                    delete global.evolution.chloroplasts;
+                    delete global.evolution.chitin;
+                    global.evolution['circuitry'] = { count: 0 };
+                    global.evolution['final'] = 40;
+                    addAction('evolution', 'circuitry');
+                    evoProgress();
+                }
+                return false;
+            },
+            no_queue() {
+                let key = $(this)[0].id.split('-')[1];
+                return !global.evolution.hasOwnProperty(key) || global.evolution[key].count >= 1 ? true : false;
+            },
+            queue_complete() { return 1; },
             queueable: true
         },
         multicellular: {
@@ -275,36 +322,62 @@ export const actions = {
             title: loc('evo_multicellular_title'),
             desc: loc('evo_multicellular_desc'),
             cost: {
-                DNA(){ return 200; }
+                DNA() { return 200; }
             },
             effect: loc('evo_multicellular_effect'),
-            action(){
-                if (payCosts($(this)[0].cost)){
+            action() {
+                if (payCosts($(this)[0].cost)) {
                     global.evolution['multicellular'].count++;
                     removeAction(actions.evolution.multicellular.id);
                     global.evolution['final'] = 60;
 
-                    if (global.evolution['phagocytosis']){
+                    if (global.evolution['phagocytosis']) {
                         global.evolution['bilateral_symmetry'] = { count: 0 };
-                        addAction('evolution','bilateral_symmetry');
+                        addAction('evolution', 'bilateral_symmetry');
                     }
-                    else if (global.evolution['chloroplasts']){
+                    else if (global.evolution['chloroplasts']) {
                         global.evolution['poikilohydric'] = { count: 0 };
-                        addAction('evolution','poikilohydric');
+                        addAction('evolution', 'poikilohydric');
                     }
                     else if (global.evolution['chitin']) {
                         global.evolution['spores'] = { count: 0 };
-                        addAction('evolution','spores');
+                        addAction('evolution', 'spores');
                     }
                     evoProgress();
                 }
                 return false;
             },
-            no_queue(){
+            no_queue() {
                 let key = $(this)[0].id.split('-')[1];
                 return !global.evolution.hasOwnProperty(key) || global.evolution[key].count >= 1 ? true : false;
             },
-            queue_complete(){ return 1; },
+            queue_complete() { return 1; },
+            queueable: true
+        },
+        circuitry: {
+            id: 'evolution-circuitry',
+            title: loc('evo_circuitry_title'),
+            desc: loc('evo_circuitry_desc'),
+            cost: {
+                DNA() { return 200; }
+            },
+            effect: loc('evo_circuitry_effect'),
+            action() {
+                if (payCosts($(this)[0].cost)) {
+                    global.evolution['circuitry'].count++;
+                    removeAction(actions.evolution.circuitry.id);
+                    global.evolution['final'] = 60;
+                    global.evolution['AI'] = { count: 0 };
+                    addAction('evolution', 'AI');
+                    evoProgress();
+                }
+                return false;
+            },
+            no_queue() {
+                let key = $(this)[0].id.split('-')[1];
+                return !global.evolution.hasOwnProperty(key) || global.evolution[key].count >= 1 ? true : false;
+            },
+            queue_complete() { return 1; },
             queueable: true
         },
         spores: {
@@ -412,6 +485,32 @@ export const actions = {
             queue_complete(){ return 1; },
             queueable: true
         },
+        AI: {
+            id: 'evolution-AI',
+            title: loc('evo_AI_title'),
+            desc: loc('evo_AI_desc'),
+            cost: {
+                DNA() { return 230; }
+            },
+            effect: loc('evo_nucleus_boost'),
+            action() {
+                if (payCosts($(this)[0].cost)) {
+                    global.evolution['AI'].count++;
+                    removeAction(actions.evolution.AI.id);
+                    global.evolution['mechanical'] = { count: 0 };
+                    global.evolution['final'] = 80;
+                    addAction('evolution', 'mechanical');
+                    evoProgress();
+                }
+                return false;
+            },
+            no_queue() {
+                let key = $(this)[0].id.split('-')[1];
+                return !global.evolution.hasOwnProperty(key) || global.evolution[key].count >= 1 ? true : false;
+            },
+            queue_complete() { return 1; },
+            queueable: true
+        },
         bryophyte: {
             id: 'evolution-bryophyte',
             title: loc('evo_bryophyte_title'),
@@ -456,6 +555,41 @@ export const actions = {
                 return !global.evolution.hasOwnProperty(key) || global.evolution[key].count >= 1 ? true : false;
             },
             queue_complete(){ return 1; },
+            queueable: true
+        },
+        mechanical: {
+            id: 'evolution-mechanical',
+            title: loc('evo_mechanical_title'),
+            desc: loc('evo_mechanical_desc'),
+            cost: {
+                DNA() { return 260; }
+            },
+            effect: loc('evo_mechanical_effect'),
+            action() {
+                if (payCosts($(this)[0].cost)) {
+                    global.evolution['mechanical'].count++;
+                    removeAction(actions.evolution.mechanical.id);
+                    global.evolution['final'] = 100;
+                    global.evolution['sentience'] = { count: 0 };
+                    addAction('evolution', 'sentience');
+                    addRaces(['cyborg', 'android']);
+                    if (races.custom.hasOwnProperty('type') && races.custom.type === 'mechanical') {
+                        global.evolution['custom'] = { count: 0 };
+                        addAction('evolution', 'custom');
+                    }
+                    if (global.genes['challenge']) {
+                        global.evolution['bunker'] = { count: 0 };
+                        addAction('evolution', 'bunker');
+                    }
+                    evoProgress();
+                }
+                return false;
+            },
+            no_queue() {
+                let key = $(this)[0].id.split('-')[1];
+                return !global.evolution.hasOwnProperty(key) || global.evolution[key].count >= 1 ? true : false;
+            },
+            queue_complete() { return 1; },
             queueable: true
         },
         athropods: {
