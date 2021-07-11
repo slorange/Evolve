@@ -427,8 +427,8 @@ export const traits = {
         name: loc('trait_aquaphobic_name'),
         desc: loc('trait_aquaphobic'),
         type: 'genus',
-        val: -5,
-        vars: [-30, -20, -10, 0]
+        val: -6,
+        vars: [-50, -25, -10, 0]
     },
     creative: { // A.R.P.A. Projects are cheaper
         name: loc('trait_creative_name'),
@@ -1060,6 +1060,37 @@ export const traits = {
         desc: loc('trait_noble'),
         type: 'major',
         val: -3,
+    },
+    cyborg_soldiers: { // +1 to weapon tech
+        name: loc('trait_cyborg_soldiers_name'),
+        desc: loc('trait_cyborg_soldiers'),
+        type: 'major',
+        val: 6,
+    },
+    cybernetic_limbs: { // Start with cybernetic limbs, 25% lumber, quarry, miners
+        name: loc('trait_cybernetic_limbs_name'),
+        desc: loc('trait_cybernetic_limbs'),
+        type: 'major',
+        val: 8,
+    },
+    efficient: { // Reduced power requirements by 25%
+        name: loc('trait_efficient_name'),
+        desc: loc('trait_efficient'),
+        type: 'major',
+        val: 7,
+        vars: [25]
+    },
+    electrical: { // Pops require electricity, production penalty or bonus based on unused electricity
+        name: loc('trait_electrical_name'),
+        desc: loc('trait_electrical'),
+        type: 'major',
+        val: 4,
+    },
+    humorless: { // Morale techs removed
+        name: loc('trait_humorless_name'),
+        desc: loc('trait_humorless'),
+        type: 'major',
+        val: -8,
     },
     soul_eater: { // You eat souls for breakfast, lunch, and dinner
         name: loc('trait_soul_eater_name'),
@@ -2309,7 +2340,7 @@ export function racialTrait(workers,type){
             modifier *= 1 + (boost / (boost + 75));
         }
     }
-    if (global.tech['cyber_worker'] && (type === 'lumberjack' || type === 'miner')){
+    if (global.tech['cyber_worker'] || global.race['cybernetic_limbs'] && (type === 'lumberjack' || type === 'miner')){
         modifier *= 1.25;
     }
     return modifier;

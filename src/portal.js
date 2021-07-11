@@ -4100,6 +4100,10 @@ export function mechRating(mech,boss){
         rating *= 1.25;
     }
 
+    if (global.race['mechanical']) {
+        rating *= 1 + (traits.mechanical.vars[0] / 100);
+    }
+
     if (boss){
         if (global.stats.achieve['gladiator'] && global.stats.achieve.gladiator.l > 0){
             rating *= 1 + global.stats.achieve.gladiator.l * 0.1;

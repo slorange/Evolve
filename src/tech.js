@@ -6586,7 +6586,7 @@ const techs = {
         category: 'military',
         era: 'dimensional',
         reqs: { military: 10, high_tech: 18 },
-        grant: ['military',11],
+        grant: ['cyborg',1],
         cost: {
             Knowledge(){ return 26000000; },
             Adamantite(){ return 8000000; },

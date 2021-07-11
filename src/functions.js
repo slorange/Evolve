@@ -820,9 +820,12 @@ export function powerModifier(energy){
 
 export function powerCostMod(energy){
     if (global.race['emfield']){
-        return +(energy * 1.5).toFixed(2);
+        energy *= 1.5;
     }
-    return energy;
+    if (global.race['efficient']) {
+        energy *= 1 - (traits.efficient.vars[0] / 100); 
+    }
+    return energy.toFixed(2);
 }
 
 export function darkEffect(universe, flag, info, inputs){

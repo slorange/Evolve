@@ -865,6 +865,12 @@ function fastLoop(){
         global_multiplier *= 1 - (entropy / 100);
     }
 
+    if (global.race['aquaphobic'] && global.city.calendar.weather === 0) {
+        let aqua = traits.aquaphobic.vars[0];
+        global_multiplier *= 1 - (aqua / 100);
+        breakdown.p['Global'][loc('trait_aquaphobic_bd')] = `-${aqua}%`;
+    }
+
     breakdown.p['consume'] = {
         Money: {},
         Mana: {},
