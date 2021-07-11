@@ -2082,6 +2082,45 @@ export const races = {
         },
         fanaticism: 'magnificent'
     },
+    cyborg: {
+        name: loc('race_cyborg'),
+        desc: loc('race_cyborg_desc'),
+        type: 'mechanical',
+        home: loc('race_cyborg_home'),
+        entity: loc('race_cyborg_entity'),
+        traits: {
+            cyborg_soldiers: 1,
+            cybernetic_limbs: 1
+        },
+        solar: {
+            red: loc('race_cyborg_solar_red'),
+            hell: loc('race_cyborg_solar_hell'),
+            gas: loc('race_cyborg_solar_gas'),
+            gas_moon: loc('race_cyborg_solar_gas_moon'),
+            dwarf: loc('race_cyborg_solar_dwarf'),
+        },
+        fanaticism: 'cyborg_soldiers'
+    },
+    android: {
+        name: loc('race_android'),
+        desc: loc('race_android_desc'),
+        type: 'mechanical',
+        home: loc('race_android_home'),
+        entity: loc('race_android_entity'),
+        traits: {
+            efficient: 1,
+            electrical: 1,
+            humorless: 1
+        },
+        solar: {
+            red: loc('race_android_solar_red'),
+            hell: loc('race_android_solar_hell'),
+            gas: loc('race_android_solar_gas'),
+            gas_moon: loc('race_android_solar_gas_moon'),
+            dwarf: loc('race_android_solar_dwarf'),
+        },
+        fanaticism: 'efficient'
+    },
     junker: {
         name: altRace('junker') ? loc('race_ghoul') : loc('race_junker'),
         desc: altRace('junker') ? loc('race_ghoul_desc') : loc('race_junker_desc'),
