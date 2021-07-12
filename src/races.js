@@ -421,7 +421,7 @@ export const traits = {
         desc: loc('trait_oleophilic'),
         type: 'genus',
         val: 2,
-        vars: [15, 15]
+        vars: [15, 15, 0.25]
     },
     aquaphobic: { // Allergic to Rain
         name: loc('trait_aquaphobic_name'),

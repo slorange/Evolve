@@ -825,7 +825,7 @@ export function powerCostMod(energy){
     if (global.race['efficient']) {
         energy *= 1 - (traits.efficient.vars[0] / 100); 
     }
-    return energy.toFixed(2);
+    return +energy.toFixed(2);
 }
 
 export function darkEffect(universe, flag, info, inputs){

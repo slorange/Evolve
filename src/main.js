@@ -2469,6 +2469,26 @@ function fastLoop(){
             }
         }
 
+        if (global.race['oleophilic']) {
+            var oiled = false;
+            if (global.resource['Oil'].display) {
+                let pop = global.resource[global.race.species].amount + global.civic.garrison.workers;
+                let res_cost = pop * traits.oleophilic.vars[2];
+                breakdown.p.consume['Oil'][loc('trait_oleophilic_bd')] = -(res_cost);
+                if (modRes('Oil', -(res_cost * time_multiplier))){
+                    oiled = true;
+                }
+            }
+            if (oiled) {
+                global_multiplier *= 1 + (traits.oleophilic.vars[0] / 100);
+                breakdown.p['Global'][loc('trait_oleophilic_bd2')] = `${traits.oleophilic.vars[0]}%`;
+            }
+            else {
+                global_multiplier *= 1 - (traits.oleophilic.vars[1] / 100);
+                breakdown.p['Global'][loc('trait_oleophilic_bd3')] = `-${traits.oleophilic.vars[1]}%`;
+            }
+        }
+
         // Consumption
         var fed = true;
         if (global.resource[global.race.species].amount >= 1 || global.city['farm'] || global.city['soul_well'] || global.city['compost'] || global.city['tourist_center']){
