@@ -1150,7 +1150,7 @@ const techs = {
         era: 'civilized',
         reqs: { housing: 1, currency: 1, cement: 1 },
         grant: ['theatre',1],
-        not_trait: ['joyless'],
+        not_trait: ['joyless', 'humorless'],
         cost: {
             Knowledge(){ return 750; }
         },

@@ -2331,21 +2331,23 @@ function fastLoop(){
             morale = moraleCap;
         }
         global.city.morale.cap = moraleCap;
-        global.city.morale.current = morale;
 
-        if (global.city.morale.current < 100){
-            if (global.race['blissful']){
+        if (!global.race['humorless']){
+            global.city.morale.current = morale;
+            if (global.city.morale.current < 100){
+                if (global.race['blissful']) {
+                    global_multiplier *= 1 + ((global.city.morale.current - 100) / 200);
+                    breakdown.p['Global'][loc('morale')] = ((global.city.morale.current - 100) / 2) + '%';
+                }
+                else {
+                    global_multiplier *= global.city.morale.current / 100;
+                    breakdown.p['Global'][loc('morale')] = (global.city.morale.current - 100) + '%';
+                }
+            }
+            else {
                 global_multiplier *= 1 + ((global.city.morale.current - 100) / 200);
                 breakdown.p['Global'][loc('morale')] = ((global.city.morale.current - 100) / 2) + '%';
             }
-            else {
-                global_multiplier *= global.city.morale.current / 100;
-                breakdown.p['Global'][loc('morale')] = (global.city.morale.current - 100) + '%';
-            }
-        }
-        else {
-            global_multiplier *= 1 + ((global.city.morale.current - 100) / 200);
-            breakdown.p['Global'][loc('morale')] = ((global.city.morale.current - 100) / 2) + '%';
         }
 
         if (global.race['lazy'] && global.city.calendar.temp === 2){
