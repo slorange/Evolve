@@ -1542,7 +1542,25 @@ function fastLoop(){
             power_generated[loc('city_mill_title2')] = power;
         }
 
+        if (global.race['electrical']) {
+            let power = powerModifier(global.civic.generator.workers);
+            max_power -= power;
+            power_grid += power;
+            power_generated[loc('job_generator')] = power;
+        }
+
         // Power usage
+        if (global.race['electrical']) {
+            let pop = global.resource[global.race.species].amount + global.civic.garrison.workers - global.civic.generator.workers;
+            if (pop >= power_grid) {
+                power_grid = 0;
+                global_multiplier *= 0.5;
+                breakdown.p['Global'][loc('trait_electrical_bd')] = `-${50}%`;
+            }
+            else {
+                power_grid -= pop;
+            }
+        }
         let p_structs = global.power;
         for (var i = 0; i < p_structs.length; i++){
             let parts = p_structs[i].split(":");
@@ -1570,6 +1588,11 @@ function fastLoop(){
                 p_on[parts[1]] = 0;
                 $(`#${region}-${parts[1]} .on`).removeClass('warn');
             }
+        }
+        if (global.race['electrical']) {
+            var mult = 12 * Math.log(power_grid / 30 + 1);
+            global_multiplier *= 1 + mult/100;
+            breakdown.p['Global'][loc('trait_electrical_bd2')] = `${mult}%`;
         }
 
         if (p_on['s_gate'] && p_on['foothold']){
@@ -2493,7 +2516,7 @@ function fastLoop(){
 
         // Consumption
         var fed = true;
-        if (global.resource[global.race.species].amount >= 1 || global.city['farm'] || global.city['soul_well'] || global.city['compost'] || global.city['tourist_center']){
+        if (!global.race['electrical'] && (global.resource[global.race.species].amount >= 1 || global.city['farm'] || global.city['soul_well'] || global.city['compost'] || global.city['tourist_center'])){
             let food_bd = {};
             let food_base = 0;
             if (global.race['detritivore']){

@@ -27,6 +27,13 @@ export const job_desc = {
         }
         return desc;
     },
+    generator: function(){
+        let desc = loc('job_generator_desc');
+        if (global.civic.d_job === 'generator'){
+            desc = desc + ' ' + loc('job_default',[loc('job_generator')]);
+        }
+        return desc;
+    },
     farmer: function(){
         let farmer = +farmerValue(true).toFixed(2);
         let farmhand = +farmerValue(false).toFixed(2);
@@ -221,6 +228,7 @@ export function defineJobs(define){
     loadJob('unemployed',define,0,0,'warning');
     loadJob('hunter',define,0,0);
     loadJob('forager',define,0,0);
+    loadJob('generator',define,0,0);
     loadJob('farmer',define,0.82,5);
     loadJob('lumberjack',define,1,5);
     loadJob('quarry_worker',define,1,5);

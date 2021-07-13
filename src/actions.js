@@ -6994,6 +6994,12 @@ function sentience(){
         global.civic.d_job = 'forager';
         global.civic.forager.display = true;
     }
+    else if (global.race['electrical']){
+        global.civic.d_job = 'generator';
+        global.civic.generator.display = true;
+        global.city['power'] = 0;
+        global.city['powered'] = true;
+    }
     else {
         global.civic.d_job = 'unemployed';
         global.civic.unemployed.display = true;

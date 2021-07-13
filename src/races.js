@@ -1080,7 +1080,7 @@ export const traits = {
         val: 7,
         vars: [25]
     },
-    electrical: { // Pops require electricity, production penalty or bonus based on unused electricity
+    electrical: { // Pops require electricity instead of food, production penalty or bonus based on unused electricity
         name: loc('trait_electrical_name'),
         desc: loc('trait_electrical'),
         type: 'major',

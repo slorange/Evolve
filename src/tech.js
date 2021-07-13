@@ -27,8 +27,10 @@ const techs = {
             Stone(){ return global.race['kindling_kindred'] || global.race['smoldering'] ? 5 : 0; }
         },
         action(){
-            if (payCosts($(this)[0].cost)){
-                global.resource.Food.display = true;
+            if (payCosts($(this)[0].cost)) {
+                if (!global.race['electrical']) {
+                    global.resource.Food.display = true;
+                }
                 return true;
             }
             return false;
@@ -637,7 +639,7 @@ const techs = {
         category: 'agriculture',
         era: 'civilized',
         reqs: { primitive: 3 },
-        not_trait: ['carnivore','soul_eater','detritivore','cataclysm'],
+        not_trait: ['carnivore','soul_eater','detritivore','electrical','cataclysm'],
         grant: ['agriculture',1],
         cost: {
             Knowledge(){ return 10; }
@@ -778,7 +780,7 @@ const techs = {
         category: 'power_generation',
         era: 'globalized',
         reqs: { high_tech: 4 },
-        condition(){ return (global.tech['hunting'] && global.tech['hunting'] >= 2) || global.race['detritivore'] || global.race['soul_eater'] ? true : false; },
+        condition() { return (global.tech['hunting'] && global.tech['hunting'] >= 2) || global.race['detritivore'] || global.race['soul_eater'] || global.race['electrical'] ? true : false; },
         grant: ['wind_plant',1],
         cost: {
             Knowledge(){ return 66000; }
@@ -4012,9 +4014,11 @@ const techs = {
         effect: loc('tech_electricity_effect'),
         action(){
             if (payCosts($(this)[0].cost)){
-                messageQueue(loc('tech_electricity_msg'),'info');
-                global.city['power'] = 0;
-                global.city['powered'] = true;
+                messageQueue(loc('tech_electricity_msg'), 'info');
+                if (!global.city['powered']) {
+                    global.city['power'] = 0;
+                    global.city['powered'] = true;
+                }
                 global.city['coal_power'] = {
                     count: 0,
                     on: 0
