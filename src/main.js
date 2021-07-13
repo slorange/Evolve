@@ -867,6 +867,9 @@ function fastLoop(){
 
     if (global.race['aquaphobic'] && global.city.calendar.weather === 0) {
         let aqua = traits.aquaphobic.vars[0];
+        if (global.tech['aquaphobic']) {
+            aqua = traits.aquaphobic.vars[global.tech['aquaphobic']];
+        }
         global_multiplier *= 1 - (aqua / 100);
         breakdown.p['Global'][loc('trait_aquaphobic_bd')] = `-${aqua}%`;
     }
@@ -1551,14 +1554,15 @@ function fastLoop(){
 
         // Power usage
         if (global.race['electrical']) {
-            let pop = global.resource[global.race.species].amount + global.civic.garrison.workers - global.civic.generator.workers;
-            if (pop >= power_grid) {
+            let popcost = (global.resource[global.race.species].amount + global.civic.garrison.workers - global.civic.generator.workers) * traits.electrical.vars[0];
+            if (popcost > power_grid) {
+                var penalty = (popcost - power_grid) / popcost;
                 power_grid = 0;
-                global_multiplier *= 0.5;
-                breakdown.p['Global'][loc('trait_electrical_bd')] = `-${50}%`;
+                global_multiplier *= 1 - penalty;
+                breakdown.p['Global'][loc('trait_electrical_bd')] = `-${penalty*100}%`;
             }
             else {
-                power_grid -= pop;
+                power_grid -= popcost;
             }
         }
         let p_structs = global.power;
@@ -1589,7 +1593,7 @@ function fastLoop(){
                 $(`#${region}-${parts[1]} .on`).removeClass('warn');
             }
         }
-        if (global.race['electrical']) {
+        if (global.race['electrical'] && power_grid > 0) {
             var mult = 12 * Math.log(power_grid / 30 + 1);
             global_multiplier *= 1 + mult/100;
             breakdown.p['Global'][loc('trait_electrical_bd2')] = `${mult}%`;

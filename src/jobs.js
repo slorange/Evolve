@@ -28,7 +28,7 @@ export const job_desc = {
         return desc;
     },
     generator: function(){
-        let desc = loc('job_generator_desc');
+        let desc = loc('job_generator_desc', [1]);
         if (global.civic.d_job === 'generator'){
             desc = desc + ' ' + loc('job_default',[loc('job_generator')]);
         }

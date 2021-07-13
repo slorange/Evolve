@@ -4007,6 +4007,7 @@ const techs = {
         era: 'discovery',
         reqs: { high_tech: 1 },
         grant: ['high_tech',2],
+        not_trait: ['electrical'],
         cost: {
             Knowledge(){ return 13500; },
             Copper(){ return 1000; }
@@ -4015,10 +4016,36 @@ const techs = {
         action(){
             if (payCosts($(this)[0].cost)){
                 messageQueue(loc('tech_electricity_msg'), 'info');
-                if (!global.city['powered']) {
-                    global.city['power'] = 0;
-                    global.city['powered'] = true;
-                }
+                global.city['power'] = 0;
+                global.city['powered'] = true;
+                global.city['coal_power'] = {
+                    count: 0,
+                    on: 0
+                };
+                global.settings.showPowerGrid = true;
+                setPowerGrid();
+                return true;
+            }
+            return false;
+        }
+    },
+    coal_power: {
+        id: 'tech-coal_power',
+        title: loc('tech_coal_power'),
+        desc: loc('tech_coal_power'),
+        category: 'power_generation',
+        era: 'discovery',
+        reqs: { high_tech: 1 },
+        grant: ['high_tech', 2],
+        trait: ['electrical'],
+        cost: {
+            Knowledge() { return 13500; },
+            Copper() { return 1000; }
+        },
+        effect: loc('tech_coal_power_effect'),
+        action() {
+            if (payCosts($(this)[0].cost)) {
+                messageQueue(loc('tech_coal_power_msg'), 'info');
                 global.city['coal_power'] = {
                     count: 0,
                     on: 0
@@ -6217,6 +6244,69 @@ const techs = {
         effect: loc('tech_ancient_infusion_effect'),
         action(){
             if (payCosts($(this)[0].cost)){
+                return true;
+            }
+            return false;
+        }
+    },
+    airtight_casing: {
+        id: 'tech-airtight_casing',
+        title: loc('tech_airtight_casing'),
+        desc: loc('tech_airtight_casing'),
+        category: 'aquaphobic',
+        era: 'civilized',
+        reqs: { foundry: 2 },
+        grant: ['aquaphobic', 1],
+        trait: ['aquaphobic'],
+        cost: {
+            Knowledge() { return 1800; },
+            Wrought_Iron() { return 100; }
+        },
+        effect: loc('tech_airtight_casing_effect'),
+        action() {
+            if (payCosts($(this)[0].cost)) {
+                return true;
+            }
+            return false;
+        }
+    },
+    stainless_steel: {
+        id: 'tech-stainless_steel',
+        title: loc('tech_stainless_steel'),
+        desc: loc('tech_stainless_steel'),
+        category: 'aquaphobic',
+        era: 'civilized',
+        reqs: { aquaphobic: 1, smelting: 2 },
+        grant: ['aquaphobic', 2],
+        trait: ['aquaphobic'],
+        cost: {
+            Knowledge() { return 5200; },
+            Steel() { return 500; }
+        },
+        effect: loc('tech_stainless_steel_effect'),
+        action() {
+            if (payCosts($(this)[0].cost)) {
+                return true;
+            }
+            return false;
+        }
+    },
+    epoxy_coating: {
+        id: 'tech-epoxy_coating',
+        title: loc('tech_epoxy_coating'),
+        desc: loc('tech_epoxy_coating'),
+        category: 'aquaphobic',
+        era: 'globalized',
+        reqs: { aquaphobic: 2, polymer: 1 },
+        grant: ['aquaphobic', 3],
+        trait: ['aquaphobic'],
+        cost: {
+            Knowledge() { return 85000; },
+            Polymer() { return 500; }
+        },
+        effect: loc('tech_epoxy_coating_effect'),
+        action() {
+            if (payCosts($(this)[0].cost)) {
                 return true;
             }
             return false;
