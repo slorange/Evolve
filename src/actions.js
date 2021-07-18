@@ -167,7 +167,7 @@ export const actions = {
                     addAction('evolution','chloroplasts');
                     global.evolution['chitin'] = { count: 0 };
                     addAction('evolution','chitin');
-                    if (global.city.ptrait === 'magnetic' || global.blood['unbound']) {
+                    if (global.stats.achieve['super_cooled'] && global.stats.achieve['super_cooled'].l >= 5 && (global.city.ptrait === 'magnetic' || global.blood['unbound'])) {
                         global.evolution['electrical'] = { count: 0 };
                         addAction('evolution', 'electrical');
                     }

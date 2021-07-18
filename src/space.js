@@ -3490,6 +3490,11 @@ const interstellarProjects = {
                         }
                     }
                 }
+                let power = Math.round(powerCostMod(10000) - (heatsink * (global.interstellar.hasOwnProperty('thermal_collector') ? global.interstellar.thermal_collector.count : 0)));
+                if (power <= 0) {
+                    unlockAchieve(`super_cooled`);
+                }
+
                 return loc('interstellar_thermal_collector_effect',[heatsink]);
             },
             action(){

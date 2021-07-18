@@ -20,7 +20,7 @@ const achieve_list = {
         'red_tactics','pacifist','neutralized','paradise','scrooge','madagascar_tree','godwin',
         'laser_shark','infested','mass_starvation','colonist','world_domination','illuminati',
         'syndicate','cult_of_personality','doomed','pandemonium','blood_war','landfill','seeder',
-        'miners_dream','shaken','blacken_the_sun','trade','resonance','enlightenment','gladiator',
+        'miners_dream','shaken','blacken_the_sun','super_cooled','trade','resonance','enlightenment','gladiator',
         'corrupted'
     ],
     species: [
@@ -31,7 +31,7 @@ const achieve_list = {
         'extinct_arraak','extinct_pterodacti','extinct_dracnid','extinct_entish','extinct_cacti','extinct_pinguicula','extinct_sporgar',
         'extinct_shroomi','extinct_moldling','extinct_mantis','extinct_scorpid','extinct_antid','extinct_sharkin','extinct_octigoran','extinct_dryad',
         'extinct_satyr','extinct_phoenix','extinct_salamander','extinct_yeti','extinct_wendigo','extinct_tuskin','extinct_kamel','extinct_balorg',
-        'extinct_imp','extinct_seraph','extinct_unicorn','extinct_junker','extinct_custom'
+        'extinct_imp','extinct_seraph','extinct_unicorn','extinct_cyborg','extinct_android','extinct_junker','extinct_custom'
     ],
     genus: [
         'creator','genus_humanoid','genus_carnivore','genus_herbivore','genus_small','genus_giant','genus_reptilian','genus_avian',
@@ -1376,6 +1376,19 @@ export const perkList = {
         notes: [
             loc(`wiki_perks_achievement_note`,[`<span class="has-text-caution">${loc(`achieve_gladiator_name`)}</span>`]),
             loc(`wiki_perks_achievement_note_scale`,[`<span class="has-text-caution">${loc(`achieve_gladiator_name`)}</span>`])
+        ]
+    },
+    super_cooled: {
+        name: loc(`achieve_super_cooled_name`),
+        desc() {
+            return loc("achieve_perks_super_cooled");
+        },
+        active() {
+            return global.stats.achieve['super_cooled'] && global.stats.achieve.super_cooled.l >= 5 ? true : false;
+        },
+        notes: [
+            loc(`wiki_perks_achievement_note`, [`<span class="has-text-caution">${loc(`achieve_super_cooled_name`)}</span>`]),
+            loc(`wiki_perks_achievement_note_super_cooled`, [`<span class="has-text-caution">${loc(`achieve_super_cooled_name`)}</span>`])
         ]
     },
     creep: {
