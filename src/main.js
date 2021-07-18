@@ -1545,8 +1545,11 @@ function fastLoop(){
             power_generated[loc('city_mill_title2')] = power;
         }
 
-        if (global.race['electrical']) {
+        if (global.race['electrical']){
             let power = powerModifier(global.civic.generator.workers);
+            if (red_on['biodome']){
+                power += powerModifier(red_on['biodome'] * traits.electrical.vars[1]);
+            }
             max_power -= power;
             power_grid += power;
             power_generated[loc('job_generator')] = power;
@@ -5349,6 +5352,7 @@ function midLoop(){
             hunter: -1,
             forager: -1,
             farmer: -1,
+            generator: -1,
             lumberjack: -1,
             quarry_worker: -1,
             crystal_miner: -1,
