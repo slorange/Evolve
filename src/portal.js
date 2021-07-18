@@ -2280,7 +2280,7 @@ export function bloodwar(){
                         global.portal.soul_forge.kills += demons;
                     }
                 }
-                if (Math.rand(0,gem_chance) === 0){
+                if (true){
                     global.resource.Soul_Gem.amount++;
                     global.portal.fortress.pity = 0;
                     if (!global.resource.Soul_Gem.display){
@@ -2427,7 +2427,7 @@ export function bloodwar(){
         }
     }
 
-    if (global.stats.dkills >= 1000000 && global.tech['gateway'] && !global.tech['hell_pit']){
+    if (global.stats.dkills >= 100 && global.tech['gateway'] && !global.tech['hell_pit']){
         global.tech['hell_pit'] = 1;
         global.settings.portal.pit = true;
         messageQueue(loc('portal_hell_pit_found'),'info');
@@ -2475,7 +2475,7 @@ export function bloodwar(){
         if (forgeOperating && global.portal.soul_forge.kills >= Math.round(cap)){
             global.portal.soul_forge.kills = 0;
             let c_max = 10 - p_on['soul_attractor'] > 0 ? 10 - p_on['soul_attractor'] : 1;
-            if (global.tech.high_tech >= 16 && !global.tech['corrupt'] && Math.rand(0,c_max + 1) === 0){
+            if (global.tech.high_tech >= 16 && !global.tech['corrupt']){
                 global.resource.Corrupt_Gem.amount++;                  
                 global.resource.Corrupt_Gem.display = true;
                 messageQueue(loc('portal_corrupt_gem'),'info');

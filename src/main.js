@@ -2470,7 +2470,7 @@ function fastLoop(){
                     }
                 });
             }
-            global.portal.purifier.supply += supply;
+            global.portal.purifier.supply += supply*1000;
             global.portal.purifier.diff = supply / time_multiplier;
             if (global.portal.purifier.supply > global.portal.purifier.sup_max){
                 global.portal.purifier.supply = global.portal.purifier.sup_max;

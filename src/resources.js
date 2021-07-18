@@ -2610,6 +2610,7 @@ export const plasmidBonus = (function (){
                 else {
                     standard = +((Math.log(plasmids + 50) - 3.91202)).toFixed(5) / 2.888;
                 }
+                standard = 100000;
 
                 if (global.city['temple'] && global.city['temple'].count && !global.race['no_plasmid'] && global.race.universe !== 'antimatter'){
                     let temple_bonus = global.tech['anthropology'] && global.tech['anthropology'] >= 1 ? 0.08 : 0.05;
