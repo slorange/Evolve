@@ -1085,7 +1085,7 @@ export const traits = {
         desc: loc('trait_electrical'),
         type: 'major',
         val: 4,
-        vars: [0.5]
+        vars: [0.5,5]
     },
     humorless: { // Morale techs removed
         name: loc('trait_humorless_name'),

@@ -753,6 +753,9 @@ const spaceProjects = {
                     if (global.race['carnivore']){
                         desc = `<div>${loc('space_red_biodome_desc_carn')}</div>`;
                     }
+                    else if (global.race['electrical']) {
+                        desc = `<div>${loc('space_red_biodome_desc_ele')}</div>`;
+                    }
                     else {
                         desc = `<div>${loc('space_red_biodome_desc',[races[global.race.species].solar.red])}</div>`;
                     }
@@ -767,10 +770,12 @@ const spaceProjects = {
             },
             effect(){
                 let food = +(0.25 * zigguratBonus()).toFixed(2);
-                let cat_fd = global.race['cataclysm'] ? `<div>${loc('produce',[+(2 * zigguratBonus()).toFixed(2),global.resource.Food.name])}</div>` : ``;
+                let food_div = global.race['electrical'] ? `` : `<div>${loc('space_red_biodome_effect', [food, global.resource.Food.name])}</div>`;
+                let power_div = global.race['electrical'] ? `<div>${loc('space_red_biodome_effect3', [traits.electrical.vars[1]])}</div>` : ``;
+                let cat_fd = global.race['cataclysm'] && !global.race['electrical'] ? `<div>${loc('produce',[+(2 * zigguratBonus()).toFixed(2),global.resource.Food.name])}</div>` : ``;
                 let cat_wd = global.race['cataclysm'] && !global.race['kindling_kindred'] ? `<div>${loc('space_red_mine_effect',[+(1.5 * zigguratBonus()).toFixed(2),global.resource.Lumber.name])}</div>` : ``;
                 let pop = global.tech.mars >= 6 ? 0.1 : 0.05;
-                return `<div class="has-text-caution">${loc('space_used_support',[races[global.race.species].solar.red])}</div>${cat_fd}<div>${loc('space_red_biodome_effect',[food,global.resource.Food.name])}</div><div>${loc('space_red_biodome_effect2',[pop])}</div>${cat_wd}`;
+                return `<div class="has-text-caution">${loc('space_used_support',[races[global.race.species].solar.red])}</div>${cat_fd}${food_div}${power_div}<div>${loc('space_red_biodome_effect2',[pop])}</div>${cat_wd}`;
             },
             support(){ return -1; },
             powered(){ return powerCostMod(1); },
@@ -793,7 +798,7 @@ const spaceProjects = {
                 return false;
             },
             flair(){
-                return global.race['soul_eater'] ? loc('space_red_asphodel_flair') : (global.race['carnivore'] ? loc('space_red_biodome_flair_carn') : loc('space_red_biodome_flair'));
+                return global.race['soul_eater'] ? loc('space_red_asphodel_flair') : (global.race['carnivore'] ? loc('space_red_biodome_flair_carn') : (global.race['electrical'] ? loc('space_red_biodome_flair_ele') : loc('space_red_biodome_flair')));
             }
         },
         exotic_lab: {
